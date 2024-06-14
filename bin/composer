@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
+ARGS=${@}
+
+docker compose exec php sh -c "composer ${ARGS}"
