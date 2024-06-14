@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
+ARGS=${@}
+
+docker compose exec php sh -c "php ./vendor/bin/php-cs-fixer ${ARGS}"
