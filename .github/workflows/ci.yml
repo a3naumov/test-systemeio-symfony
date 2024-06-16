@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  - push
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up php 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Install dependencies
+        run: composer install
+        working-directory: ./src
+      - name: Run PHP CS Fixer
+        run: ./vendor/bin/php-cs-fixer check --allow-risky=yes
+        working-directory: ./src
+      - name: Run tests and collect coverage
+        run: ./bin/phpunit --coverage-clover coverage.xml
+        working-directory: ./src
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
