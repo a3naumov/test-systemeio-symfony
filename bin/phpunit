@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+ARGS=${@}
+
+docker compose exec php sh -c "bin/phpunit ${ARGS}"

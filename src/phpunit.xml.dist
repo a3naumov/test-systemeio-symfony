@@ -27,6 +27,17 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>src/Controller</directory>
+            <directory>src/DataFixtures</directory>
+            <directory>src/Entity</directory>
+            <directory>src/Enum</directory>
+            <directory>src/Exception</directory>
+            <directory>src/PaymentProcessor/Vendor</directory>
+            <directory>src/Request</directory>
+            <directory>src/Validator/Constraint</directory>
+            <file>src/Kernel.php</file>
+        </exclude>
     </coverage>
 
     <listeners>
