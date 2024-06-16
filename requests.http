@@ -1,0 +1,139 @@
+### Calculate price with valid coupon
+POST {{ host }}/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "P10"
+}
+
+> {%
+    client.assert(response.status === 200, 'status code is 200');
+%}
+
+### Calculate price with unknown coupon
+POST {{ host }}/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "D15"
+}
+
+> {%
+    client.assert(response.status === 400, 'status code is 400');
+%}
+
+### Calculate price without coupon
+POST {{ host }}/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": null
+}
+
+> {%
+    client.assert(response.status === 200, 'status code is 200');
+%}
+
+### Calculate price with invalid tax number
+POST {{ host }}/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE1234567891",
+  "couponCode": null
+}
+
+> {%
+    client.assert(response.status === 400, 'status code is 400');
+%}
+
+### Make purchase with valid coupon
+POST {{ host }}/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "P10",
+  "paymentProcessor": "paypal"
+}
+
+> {%
+    client.assert(response.status === 200, 'status code is 200');
+%}
+
+### Make purchase with unknown coupon
+POST {{ host }}/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "D15",
+  "paymentProcessor": "paypal"
+}
+
+> {%
+    client.assert(response.status === 400, 'status code is 400');
+%}
+
+### Make purchase without coupon
+POST {{ host }}/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": null,
+  "paymentProcessor": "paypal"
+}
+
+> {%
+    client.assert(response.status === 200, 'status code is 200');
+%}
+
+### Make purchase with invalid tax number
+POST {{ host }}/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789X",
+  "couponCode": null,
+  "paymentProcessor": "paypal"
+}
+
+> {%
+    client.assert(response.status === 400, 'status code is 400');
+%}
+
+### Make purchase with failed payment
+POST {{ host }}/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789X",
+  "couponCode": null,
+  "paymentProcessor": "global_payments"
+}
+
+> {%
+    client.assert(response.status === 400, 'status code is 400');
+%}
