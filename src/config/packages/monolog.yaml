@@ -1,6 +1,12 @@
 monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - payment
+    handlers:
+        payment:
+            type: stream
+            path: "%kernel.logs_dir%/payment.log"
+            channels: ["payment"]
 
 when@dev:
     monolog:

@@ -22,3 +22,29 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\PaymentProcessor\Processor\PaypalPaymentProcessorAdapter:
+        arguments:
+            $logger: '@monolog.logger.payment'
+
+    App\PaymentProcessor\Processor\StripePaymentProcessorAdapter:
+        arguments:
+            $logger: '@monolog.logger.payment'
+
+    App\PaymentProcessor\Processor\GlobalPaymentsProcessorAdapter:
+        arguments:
+            $logger: '@monolog.logger.payment'
+
+    App\Service\PaymentService:
+        arguments:
+            $paymentProcessors:
+                paypal: '@App\PaymentProcessor\Processor\PaypalPaymentProcessorAdapter'
+                stripe: '@App\PaymentProcessor\Processor\StripePaymentProcessorAdapter'
+                global_payments: '@App\PaymentProcessor\Processor\GlobalPaymentsProcessorAdapter'
+
+    App\Service\PriceCalculator:
+        arguments:
+            $processors:
+                - '@App\PriceProcessor\Processor\ProductPriceProcessor'
+                - '@App\PriceProcessor\Processor\TaxRateProcessor'
+                - '@App\PriceProcessor\Processor\CouponProcessor'
