@@ -6,8 +6,8 @@ namespace App\PaymentProcessor\Processor;
 
 use App\Exception\PaymentProcessingException;
 use App\PaymentProcessor\PaymentProcessorInterface;
-use App\PaymentProcessor\Vendor\PaypalPaymentProcessor;
 use Psr\Log\LoggerInterface;
+use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
 
 final class PaypalPaymentProcessorAdapter implements PaymentProcessorInterface
 {

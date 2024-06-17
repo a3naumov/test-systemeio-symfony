@@ -7,14 +7,17 @@ namespace App\Service;
 use App\Exception\PriceCalculationException;
 use App\PriceProcessor\PriceCalculationContext;
 use App\PriceProcessor\PriceProcessorInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 
 class PriceCalculator
 {
     /**
-     * @param PriceProcessorInterface[] $processors
+     * @param iterable<PriceProcessorInterface> $processors
      */
-    public function __construct(private array $processors)
-    {
+    public function __construct(
+        #[AutowireLocator(services: 'app.price_processor', indexAttribute: 'priority')]
+        private iterable $processors,
+    ) {
     }
 
     /**

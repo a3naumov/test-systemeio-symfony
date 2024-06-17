@@ -6,8 +6,8 @@ namespace App\PaymentProcessor\Processor;
 
 use App\Exception\PaymentProcessingException;
 use App\PaymentProcessor\PaymentProcessorInterface;
-use App\PaymentProcessor\Vendor\StripePaymentProcessor;
 use Psr\Log\LoggerInterface;
+use Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor;
 
 final class StripePaymentProcessorAdapter implements PaymentProcessorInterface
 {

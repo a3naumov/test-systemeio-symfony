@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Unit\PaymentProcessor\Processor;
 
 use App\PaymentProcessor\Processor\PaypalPaymentProcessorAdapter;
-use App\PaymentProcessor\Vendor\PaypalPaymentProcessor;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
 
 /**
  * @covers \App\PaymentProcessor\Processor\PaypalPaymentProcessorAdapter
