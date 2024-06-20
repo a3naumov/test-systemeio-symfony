@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eu
+
+rm -f ./docker/nginx/certs/server.key
+rm -f ./docker/nginx/certs/server.crt
+
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ./docker/nginx/certs/server.key -out ./docker/nginx/certs/server.crt
